@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthController } from 'api/components';
-import { AuthService } from './services';
+import { AuthController, PaymentController } from '@api/components';
+import { AuthService, PaymentService } from '@services/index';
 import { UserSchema } from '@models/components/user/user';
 import { JwtModule } from '@nestjs/jwt';
 @Module({
@@ -13,7 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [AuthController],
-  providers: [AuthService],
+  controllers: [AuthController, PaymentController],
+  providers: [AuthService, PaymentService],
 })
 export class AppModule {}

@@ -11,8 +11,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { User } from '@models/components/user/user';
-import { AuthService } from 'services/components/auth/auth';
+import { AuthService } from '@services/components/auth/auth';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('api/auth')
 export default class AuthController {
   constructor(
@@ -20,6 +22,7 @@ export default class AuthController {
     private readonly jwtService: JwtService,
   ) {}
 
+  @ApiResponse({ status: 200, description: 'Register successful' })
   @Post('register')
   async register(@Body() user: User, @Res() res: Response) {
     const existUser = await this.authService.findOne({ email: user.email });
@@ -32,6 +35,7 @@ export default class AuthController {
       .json({ msg: 'User Registered Successfully!', data: newUser });
   }
 
+  @ApiResponse({ status: 200, description: 'Login successfully' })
   @Post('login')
   async login(
     @Body('email') email: string,
@@ -53,6 +57,7 @@ export default class AuthController {
     return { msg: 'Login Successfully!' };
   }
 
+  @ApiResponse({ status: 200, description: 'User Load successfully' })
   @Get('user')
   async user(@Req() request: Request) {
     try {
@@ -63,12 +68,13 @@ export default class AuthController {
         throw new UnauthorizedException();
       }
       const user = await this.authService.findOne({ _id: data.id });
-      return { msg: 'User Login Successfully', data: user };
+      return { msg: 'User Load Successfully', data: user };
     } catch (e) {
       throw new UnauthorizedException();
     }
   }
 
+  @ApiResponse({ status: 200, description: 'Logout successfully' })
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('jwt');

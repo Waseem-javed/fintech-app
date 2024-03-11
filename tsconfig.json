@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@controllers/*": ["controllers/*"],
+      "@api/*": ["api/*"],
       "@services/*": ["services/*"],
       "@models/*": ["models/*"]
     }

@@ -1,2 +1,5 @@
 import { AuthService } from './components/auth/auth';
-export { AuthService };
+import { OrderService } from './components/order/order';
+import { PaymentService } from './components/payment/payment';
+
+export { AuthService, OrderService, PaymentService };
